@@ -16,7 +16,7 @@
     ssid: the network SSID
     password: the network password, if applicable
     encryption: the encryption protocol for the network, if applicable | '', 'WPA', 'WPA2'
-    hidden: the visibility of the network 'True', 'False'
+    hidden: the visibility of the network | 'True', 'False'
 
 
 - <strong>Generate the WiFi QR code from provided credentials</strong>
