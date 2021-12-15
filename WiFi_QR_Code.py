@@ -4,7 +4,14 @@ from qrcode.constants import ERROR_CORRECT_H, ERROR_CORRECT_L, ERROR_CORRECT_M, 
 class WiFi_QR_Code:
 
     #__init__ method:
-    def __init__(self, error_correction = None, box_size = None, border = None):
+    def __init__(self, error_correction: int = None, box_size: int = None, border: int = None) -> None:
+        """
+        Initialize the class by providing QR code values
+
+        error_correction: the level of error correction in the QR code, the higher the larger the size | ERROR_CORRECT_L
+        box_size: the pixel width of each box in the QR code, the higher the larger resolution
+        border: the pixel width of the QR code border, improves readability for a camera | cannot be below 4px
+        """
 
         #Set default values if not provided:
         if error_correction == None:
@@ -32,7 +39,7 @@ class WiFi_QR_Code:
         )
     
     #Method for appending file type extension to filename:
-    def __filetype_substring__(self, file_name, file_type):
+    def __filetype_substring__(self, file_name: str, file_type: str) -> str: 
 
         #Add extension prefix:
         if file_type[0] != '.':
@@ -47,7 +54,15 @@ class WiFi_QR_Code:
         return file_name
         
     #Encode WiFi method:
-    def encode_wifi(self, ssid, password, encryption = None, hidden = None):
+    def encode_wifi(self, ssid: str, password: str, encryption: str = None, hidden: str = None) -> str:
+        """
+        Encodes WiFi credentials into the raw QR code standard
+
+        ssid: the network SSID
+        password: the network password, if applicable
+        encryption: the encryption protocol for the network, if applicable | '', 'WPA', 'WPA2'
+        hidden: the visibility of the network 'True', 'False'
+        """
 
         #Store current SSID:
         self.ssid = ssid
@@ -59,17 +74,28 @@ class WiFi_QR_Code:
             hidden = False
 
         #Encode WiFi credentials in legal format:
-        raw_wifi = ''.join(['WIFI:',
-                            'T:', str(encryption),
-                            ';S:', str(ssid),
-                            ';P:', str(password),
-                            ';H:', str(hidden)])
+        wifi_metadata = ''.join([
+            'WIFI:T:', str(encryption),
+            ';S:', str(ssid),
+            ';P:', str(password),
+            ';H:', str(hidden)
+            ])
         
         #Return encoded Wifi credentials:
-        return raw_wifi
+        return wifi_metadata
 
-    def generate_wifi_qrcode(self, wifi_metadata, file_name, file_directory = None, fill_color = None, back_color = None):
+    def generate_wifi_qrcode(self, wifi_metadata: str, file_name: str, file_directory: str = None, fill_color: tuple = None, back_color: tuple = None) -> str:
+        """
+        Generates the WiFi QR code from provided credentials
         
+        wifi_metadata: raw QR code metadata outputted from the "encode_wifi" function
+        file_name: the name of the file to be saved as | does not require any extension
+        file_directory: the folder at which to be saved, if applicable | will save in the same folder
+        fill_color: the color for the high state of the QR code | ('250', '250', '250')
+        back_color: the color for the low state of the QR code | ('0', '0', '0')
+        """
+
+
         #Append PNG filetype if not included:
         file_name = self.__filetype_substring__(file_name, 'png')
 
