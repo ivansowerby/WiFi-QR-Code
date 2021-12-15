@@ -56,7 +56,7 @@ class WiFi_QR_Code:
     #Encode WiFi method:
     def encode_wifi(self, ssid: str, password: str, encryption: str = None, hidden: str = None) -> str:
         """
-        Encodes WiFi credentials into the raw QR code standard
+        Encode the WiFi credentials into the raw QR code standard
 
         ssid: the network SSID
         password: the network password, if applicable
@@ -86,7 +86,7 @@ class WiFi_QR_Code:
 
     def generate_wifi_qrcode(self, wifi_metadata: str, file_name: str, file_directory: str = None, fill_color: tuple = None, back_color: tuple = None) -> str:
         """
-        Generates the WiFi QR code from provided credentials
+        Generate the WiFi QR code from provided credentials
         
         wifi_metadata: raw QR code metadata outputted from the "encode_wifi" function
         file_name: the name of the file to be saved as | does not require any extension
